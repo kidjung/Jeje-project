@@ -9,6 +9,6 @@ public class MyDog {
     private String info;    //추가 설명
 
 
-
+///
 
 }
