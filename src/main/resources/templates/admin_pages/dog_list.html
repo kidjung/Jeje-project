@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+<div class="container">
+
+    <div>
+        <form action="/add_dog" method="post">
+            <div class="dog_form=group">
+                <label for="name">이름</label>
+                <input type="text" id="name" name="name" placeholder="견종 이름">
+                <label for="info">정보</label>
+                <input type="text" id="info" name="info" placeholder="견종 정보를 입력하시오.">
+            </div>
+            <button type="submit">등록</button>
+        </form>
+    </div>
+
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>#####</th>
+                <th>이름</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="dog : ${dogs}">
+                <td th:text="${dog.name}"></td>
+                <td th:text="${dog.info}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+
+</html>

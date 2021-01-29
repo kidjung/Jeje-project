@@ -1,10 +1,8 @@
-package repository;
+package Jeje_project.Jeje_project.repository;
 
-import domain.Dog;
-import domain.MyDog;
+import Jeje_project.Jeje_project.domain.MyDog;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface MyDog_Repository {
     MyDog save(MyDog myDog);

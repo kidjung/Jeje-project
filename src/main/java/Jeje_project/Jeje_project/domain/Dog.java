@@ -1,4 +1,4 @@
-package domain;
+package Jeje_project.Jeje_project.domain;
 
 public class Dog {
 

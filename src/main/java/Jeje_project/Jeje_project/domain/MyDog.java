@@ -1,7 +1,8 @@
-package domain;
+package Jeje_project.Jeje_project.domain;
 
 public class MyDog {
     private String Owner_id;
+    private String Dog_id;
     private int age;        //나이
     private String name;    //이름
     private String sex;     //성별

@@ -1,6 +1,6 @@
-package repository;
+package Jeje_project.Jeje_project.repository;
 
-import domain.MyDog;
+import Jeje_project.Jeje_project.domain.MyDog;
 
 import java.util.ArrayList;
 import java.util.List;
