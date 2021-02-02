@@ -46,6 +46,16 @@ public class Admin_Controller {
     @PostMapping("/add_dog")
     public String add_dog(Dog_Form dog_form, HttpServletResponse response) throws Exception{
         Dog dog=new Dog();
+
+        //빈칸이 있는지 확인
+        if(dog_form.getName().strip().length()==0 || dog_form.getInfo().strip().length()==0){
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('빈칸을 채워주세요'); location.href='/admin_page/dog_list';</script>");
+            out.flush();
+            return "redirect:/admin_pages/";
+        }
+
         dog.setName(dog_form.getName());
         dog.setInfo(dog_form.getInfo());
 

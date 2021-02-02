@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+
 public class Dog_Service {
 
     private Dog_Repository dog_repository;
