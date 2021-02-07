@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
 <body>
@@ -9,13 +9,25 @@
 
     <div>
         <form action="/add_dog" method="post">
+            <p>< 견종 등록하기 ></p>
             <div class="dog_form=group">
                 <label for="name">이름</label>
                 <input type="text" id="name" name="name" placeholder="견종 이름">
                 <label for="info">정보</label>
                 <input type="text" id="info" name="info" placeholder="견종 정보를 입력하시오.">
+                <button type="submit">등록</button>
             </div>
-            <button type="submit">등록</button>
+        </form>
+    </div>
+
+    <div>
+        <form action="/search_dog" method="post">
+            <p>< 견종 검색 ></p>
+            <div class="dog_form=group">
+                <label for="name">이름</label>
+                <input type="text" id="search_name" name="name" placeholder="검색할 견종 이름">
+                <button type="submit">검색</button>
+            </div>
         </form>
     </div>
 
