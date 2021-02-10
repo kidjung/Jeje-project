@@ -1,7 +1,7 @@
 package Jeje_project.Jeje_project;
 
-import Jeje_project.Jeje_project.repository.Dog_MemoryRepository;
-import Jeje_project.Jeje_project.repository.Dog_Repository;
+import Jeje_project.Jeje_project.Dog_repository.Dog_MemoryRepository;
+import Jeje_project.Jeje_project.Dog_repository.Dog_Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

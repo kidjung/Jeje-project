@@ -1,6 +1,6 @@
-package Jeje_project.Jeje_project.repository;
+package Jeje_project.Jeje_project.Dog_repository;
 
-import Jeje_project.Jeje_project.domain.MyDog;
+import Jeje_project.Jeje_project.Dog_domain.MyDog;
 
 import java.util.List;
 

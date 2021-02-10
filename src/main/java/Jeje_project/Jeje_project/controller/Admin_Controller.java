@@ -1,13 +1,12 @@
 package Jeje_project.Jeje_project.controller;
 
-import Jeje_project.Jeje_project.domain.Dog;
+import Jeje_project.Jeje_project.Dog_domain.Dog;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import Jeje_project.Jeje_project.service.Dog_Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;

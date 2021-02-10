@@ -1,4 +1,4 @@
-package Jeje_project.Jeje_project.domain;
+package Jeje_project.Jeje_project.Dog_domain;
 
 public class MyDog {
     private String Owner_id;

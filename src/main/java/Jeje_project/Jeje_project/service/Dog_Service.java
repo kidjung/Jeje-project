@@ -1,7 +1,7 @@
 package Jeje_project.Jeje_project.service;
 
-import Jeje_project.Jeje_project.domain.Dog;
-import Jeje_project.Jeje_project.repository.Dog_Repository;
+import Jeje_project.Jeje_project.Dog_domain.Dog;
+import Jeje_project.Jeje_project.Dog_repository.Dog_Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
