@@ -51,7 +51,7 @@ public class Admin_Controller {
         if(dog_form.getName().strip().length()==0 || dog_form.getInfo().strip().length()==0){
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('빈칸을 채워주세요'); location.href='/admin_page/dog_list';</script>");
+            out.println("<script>alert('빈칸을 채워주세요');</script>");
             out.flush();
             List<Dog> dogs = dog_service.all_Dogs();
             model.addAttribute("dogs", dogs);
@@ -74,7 +74,7 @@ public class Admin_Controller {
         catch (Exception exception){
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('등록 실패하였습니다'); location.href='/admin_page/dog_list';</script>");
+            out.println("<script>alert('등록 실패하였습니다');</script>");
             out.flush();
         }
         finally {
