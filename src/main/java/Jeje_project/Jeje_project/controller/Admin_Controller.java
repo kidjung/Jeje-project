@@ -44,7 +44,7 @@ public class Admin_Controller {
 
     //견종 추가 Post
     @PostMapping("/add_dog")
-    public String add_dog(Dog_Form dog_form, HttpServletResponse response) throws Exception{
+    public String add_dog(Model model, Dog_Form dog_form, HttpServletResponse response) throws Exception{
         Dog dog=new Dog();
 
         //빈칸이 있는지 확인
@@ -53,7 +53,9 @@ public class Admin_Controller {
             PrintWriter out = response.getWriter();
             out.println("<script>alert('빈칸을 채워주세요'); location.href='/admin_page/dog_list';</script>");
             out.flush();
-            return "redirect:/admin_pages/";
+            List<Dog> dogs = dog_service.all_Dogs();
+            model.addAttribute("dogs", dogs);
+            return "admin_pages/dog_list";
         }
 
         dog.setName(dog_form.getName());
@@ -65,8 +67,9 @@ public class Admin_Controller {
             //등록 알림창
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out = response.getWriter();
-            out.println("<script>alert('등록 되었습니다'); location.href='/admin_page/dog_list';</script>");
-            out.flush();
+            out.println("<script>alert('등록 되었습니다'); </script>");
+//            out.flush();
+
         }
         catch (Exception exception){
             response.setContentType("text/html; charset=UTF-8");
@@ -75,7 +78,9 @@ public class Admin_Controller {
             out.flush();
         }
         finally {
-            return "redirect:/admin_pages/";
+            List<Dog> dogs = dog_service.all_Dogs();
+            model.addAttribute("dogs", dogs);
+            return "admin_pages/dog_list";
         }
 
     }
