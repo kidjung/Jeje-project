@@ -1,20 +1,41 @@
 package Jeje_project.Jeje_project.Dog_domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+/*This entity is for Dog that has a Owner */
+@Entity
 public class MyDog {
-    private String Owner_id;
-    private String Dog_id;
-    private int age;        //나이
-    private String name;    //이름
-    private String sex;     //성별
-    private Dog breed;      //견종
-    private String describe;    //추가 설명
 
+    @Id @Column(name="dog_id")
+    private Long Dog_id;        //강아지 ID
+    @Column(name="owner_id")
+    private Long Owner_id;      //주인 ID
+    @Column(name="age")
+    private int age;            //나이
+    @Column(name="name")
+    private String name;        //이름
+    @Column(name="sex")
+    private String sex;         //성별
+    @Column(name="breed_name")
+    private String breed_name;  //견종
+    @Column(name="describe")
+    private String describe;    //추가 설명 및 소개
 
-    public String getOwner_id() {
+    public Long getDog_id() {
+        return Dog_id;
+    }
+
+    public void setDog_id(Long dog_id) {
+        Dog_id = dog_id;
+    }
+
+    public Long getOwner_id() {
         return Owner_id;
     }
 
-    public void setOwner_id(String owner_id) {
+    public void setOwner_id(Long owner_id) {
         Owner_id = owner_id;
     }
 
@@ -42,12 +63,12 @@ public class MyDog {
         this.sex = sex;
     }
 
-    public Dog getBreed() {
-        return breed;
+    public String getBreed() {
+        return breed_name;
     }
 
-    public void setBreed(Dog breed) {
-        this.breed = breed;
+    public void setBreed(String breed_name) {
+        this.breed_name = breed_name;
     }
 
     public String getDescribe() {

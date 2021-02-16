@@ -1,6 +1,6 @@
 package Jeje_project.Jeje_project.controller;
 
-import Jeje_project.Jeje_project.Dog_domain.Dog;
+import Jeje_project.Jeje_project.Dog_domain.Breed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,8 +36,8 @@ public class Admin_Controller {
     //견종 추가, 삭제, 수정 페이지
     @GetMapping("/admin_page/dog_list")
     public String dog_list( Model model) {
-        List<Dog> dogs = dog_service.all_Dogs();
-        model.addAttribute("dogs", dogs);
+        List<Breed> breeds = dog_service.all_Dogs();
+        model.addAttribute("breeds", breeds);
         return "admin_pages/dog_list";
     }
 
@@ -45,7 +45,7 @@ public class Admin_Controller {
     //견종 추가 Post
     @PostMapping("/add_dog")
     public String add_dog(Model model, Dog_Form dog_form, HttpServletResponse response) throws Exception{
-        Dog dog=new Dog();
+        Breed breed =new Breed();
 
         //빈칸이 있는지 확인
         if(dog_form.getName().strip().length()==0 || dog_form.getInfo().strip().length()==0){
@@ -53,16 +53,16 @@ public class Admin_Controller {
             PrintWriter out = response.getWriter();
             out.println("<script>alert('빈칸을 채워주세요');</script>");
             out.flush();
-            List<Dog> dogs = dog_service.all_Dogs();
-            model.addAttribute("dogs", dogs);
+            List<Breed> breeds = dog_service.all_Dogs();
+            model.addAttribute("breeds", breeds);
             return "admin_pages/dog_list";
         }
 
-        dog.setName(dog_form.getName());
-        dog.setInfo(dog_form.getInfo());
+        breed.setName(dog_form.getName());
+        breed.setInfo(dog_form.getInfo());
 
         try {
-            dog_service.add_Dog_species(dog);
+            dog_service.add_Dog_species(breed);
 
             //등록 알림창
             response.setContentType("text/html; charset=UTF-8");
@@ -78,8 +78,8 @@ public class Admin_Controller {
             out.flush();
         }
         finally {
-            List<Dog> dogs = dog_service.all_Dogs();
-            model.addAttribute("dogs", dogs);
+            List<Breed> breeds = dog_service.all_Dogs();
+            model.addAttribute("breeds", breeds);
             return "admin_pages/dog_list";
         }
 
@@ -89,8 +89,8 @@ public class Admin_Controller {
     //견종 검색 Post
     @PostMapping(value="/search_dog")
     public String search_dog(Dog_Form dog_form, Model model) throws Exception{
-        List<Dog> dogs = dog_service.search_Dogs(dog_form.getName());
-        model.addAttribute("dogs", dogs);
+        List<Breed> breeds = dog_service.search_Dogs(dog_form.getName());
+        model.addAttribute("breeds", breeds);
         return "admin_pages/dog_list";
     }
 }

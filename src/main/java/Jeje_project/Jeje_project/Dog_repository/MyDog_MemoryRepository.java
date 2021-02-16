@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/* According to use JPA for Mysql, this class replaced to MyDog_JPA_Repository */
+/* If you want to know what function do, read this code*/
+
+
+/*
+
 public class MyDog_MemoryRepository implements MyDog_Repository{
 
     private static List<MyDog> store= new ArrayList<>();
@@ -21,3 +27,5 @@ public class MyDog_MemoryRepository implements MyDog_Repository{
         return store.stream().filter(dog->dog.getOwner_id().equals(Owner_id)).collect(Collectors.toList());
     }
 }
+
+*/

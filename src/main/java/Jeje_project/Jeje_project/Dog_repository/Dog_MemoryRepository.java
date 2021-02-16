@@ -1,6 +1,6 @@
 package Jeje_project.Jeje_project.Dog_repository;
 
-import Jeje_project.Jeje_project.Dog_domain.Dog;
+import Jeje_project.Jeje_project.Dog_domain.Breed;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -8,33 +8,41 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/* According to use JPA for Mysql, this class replaced to Breed_JPA_Repository */
+/* If you want to know what function do, read this code*/
+
+/*
+
 @Repository
 public class Dog_MemoryRepository implements Dog_Repository{
 
-    private static ArrayList<Dog> dogs= new ArrayList<>();
+    private static ArrayList<Breed> breeds = new ArrayList<>();
 
 
     // 새로윤 견종 추가
     @Override
-    public Dog save(Dog dog){
-        dogs.add(dog);
-        return dog;
+    public Breed save(Breed breed){
+        breeds.add(breed);
+        return breed;
     }
 
     //견종 일치하는 것 반환
     @Override
-    public Optional<Dog> findbyName(String name) {
-        return dogs.stream().filter(dog->dog.getName().equals(name)).findAny();
+    public Optional<Breed> findbyName(String name) {
+        return breeds.stream().filter(dog->dog.getName().equals(name)).findAny();
     }
 
     //견종 찾기
     @Override
-    public List<Dog> searchbyName(String name) {
-        return dogs.stream().filter(dog->dog.getName().contains(name)).collect(Collectors.toList());
+    public List<Breed> searchbyName(String name) {
+        return breeds.stream().filter(dog->dog.getName().contains(name)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Dog> findAll() {
-        return dogs;
+    public List<Breed> findAll() {
+        return breeds;
     }
 }
+
+
+*/

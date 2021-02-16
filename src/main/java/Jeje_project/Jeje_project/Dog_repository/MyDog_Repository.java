@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface MyDog_Repository {
     MyDog save(MyDog myDog);
-    List<MyDog> findbyOwner(String Owner_id);
+    List<MyDog> findbyOwner(Long Owner_id);
 }
