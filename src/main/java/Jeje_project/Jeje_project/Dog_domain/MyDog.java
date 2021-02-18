@@ -1,14 +1,13 @@
 package Jeje_project.Jeje_project.Dog_domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /*This entity is for Dog that has a Owner */
 @Entity
+@Table(name="mydog")
 public class MyDog {
 
-    @Id @Column(name="dog_id")
+    @Id @Column(name="dog_id")@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Dog_id;        //강아지 ID
     @Column(name="owner_id")
     private Long Owner_id;      //주인 ID
@@ -20,7 +19,7 @@ public class MyDog {
     private String sex;         //성별
     @Column(name="breed_name")
     private String breed_name;  //견종
-    @Column(name="describe")
+    @Column(name="describes")
     private String describe;    //추가 설명 및 소개
 
     public Long getDog_id() {

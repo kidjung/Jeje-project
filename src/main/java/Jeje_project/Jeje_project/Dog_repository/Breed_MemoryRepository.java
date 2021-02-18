@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 /*
 
 @Repository
-public class Dog_MemoryRepository implements Dog_Repository{
+public class Breed_MemoryRepository implements Breed_Repository{
 
     private static ArrayList<Breed> breeds = new ArrayList<>();
 

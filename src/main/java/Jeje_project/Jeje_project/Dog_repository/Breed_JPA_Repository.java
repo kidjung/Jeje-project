@@ -9,7 +9,7 @@ import java.util.Optional;
 
 /* This repository operates for Breed of dog (save, find, search ,,)*/
 @Repository
-public class Breed_JPA_Repository implements Dog_Repository{
+public class Breed_JPA_Repository implements Breed_Repository {
 
     private final EntityManager entityManager;
 
@@ -37,7 +37,7 @@ public class Breed_JPA_Repository implements Dog_Repository{
     //search by Name breed of dog (returns List)
     @Override
     public List<Breed> searchbyName(String name) {
-        List<Breed> breeds =entityManager.createQuery("select d from Breed d where d.name like '%:name%'", Breed.class)
+        List<Breed> breeds =entityManager.createQuery("SELECT d FROM Breed d WHERE d.name LIKE '%:name%'", Breed.class)
                 .setParameter("name",name)
                 .getResultList();
         return breeds;
@@ -46,8 +46,10 @@ public class Breed_JPA_Repository implements Dog_Repository{
     //find all of breed (returns List)
     @Override
     public List<Breed> findAll() {
-        List<Breed> breeds =entityManager.createQuery("select d from Breed d", Breed.class)
+        List<Breed> breeds;
+        breeds = entityManager.createQuery("SELECT d FROM Breed d", Breed.class)
                 .getResultList();
+
         return breeds;
     }
 }

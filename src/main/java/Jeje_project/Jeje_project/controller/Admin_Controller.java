@@ -36,8 +36,11 @@ public class Admin_Controller {
     //견종 추가, 삭제, 수정 페이지
     @GetMapping("/admin_page/dog_list")
     public String dog_list( Model model) {
+
+
         List<Breed> breeds = dog_service.all_Dogs();
         model.addAttribute("breeds", breeds);
+
         return "admin_pages/dog_list";
     }
 
@@ -59,6 +62,7 @@ public class Admin_Controller {
         }
 
         breed.setName(dog_form.getName());
+        breed.setSize(dog_form.getSize());
         breed.setInfo(dog_form.getInfo());
 
         try {
