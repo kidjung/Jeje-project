@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 /* This repository operates for Breed of dog (save, find, search ,,)*/
+
 @Repository
 public class Breed_JPA_Repository implements Breed_Repository {
 
@@ -27,6 +28,13 @@ public class Breed_JPA_Repository implements Breed_Repository {
         return breed;
     }
 
+    @Override
+    public Breed delete(String name) {
+        Breed to_remove=entityManager.find(Breed.class,name);
+        entityManager.remove(to_remove);
+        return to_remove;
+    }
+
     //find by Name breed of dog
     @Override
     public Optional<Breed> findbyName(String name) {
@@ -37,8 +45,7 @@ public class Breed_JPA_Repository implements Breed_Repository {
     //search by Name breed of dog (returns List)
     @Override
     public List<Breed> searchbyName(String name) {
-        List<Breed> breeds =entityManager.createQuery("SELECT d FROM Breed d WHERE d.name LIKE '%:name%'", Breed.class)
-                .setParameter("name",name)
+        List<Breed> breeds =entityManager.createQuery("SELECT d FROM Breed d WHERE d.name LIKE '%"+name+"%'", Breed.class)
                 .getResultList();
         return breeds;
     }
@@ -49,7 +56,6 @@ public class Breed_JPA_Repository implements Breed_Repository {
         List<Breed> breeds;
         breeds = entityManager.createQuery("SELECT d FROM Breed d", Breed.class)
                 .getResultList();
-
         return breeds;
     }
 }

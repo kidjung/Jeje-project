@@ -4,6 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 
+
 <style>
     table{
         width: 100%;
@@ -17,9 +18,9 @@
 <div class="container">
 
     <div>
-        <form action="/add_dog" method="post">
+        <form action="/add_breed" method="post">
             <p>< 견종 등록하기 ></p>
-            <div class="dog_form=group">
+            <div class="breed_form=group">
                 <label for="name">이름</label>
                 <input type="text" id="name" name="name" placeholder="견종 이름">
                 <label for="info">크기</label>
@@ -32,23 +33,24 @@
     </div>
 
     <div>
-        <form action="/search_dog" method="post">
+        <form action="/search_breed" method="post">
             <p>< 견종 검색 ></p>
             <div class="dog_form=group">
                 <label for="name">이름</label>
-                <input type="text" id="search_name" name="name" placeholder="검색할 견종 이름">
+                <input type="text" id="search_breed" name="name" placeholder="검색할 견종 이름">
                 <button type="submit">검색</button>
             </div>
         </form>
     </div>
 
     <div>
-        <table>
+        <table id="breed_list">
             <thead>
             <tr>
                 <th>이름</th>
                 <th>크기</th>
                 <th>정보</th>
+                <th>---</th>
             </tr>
             <tr>
                 <th>########</th>
@@ -59,15 +61,42 @@
             <tbody>
 
             <tr th:each="breed : ${breeds}">
-                <td th:text="${breed.name}"></td>
+                <td th:text="${breed.name}" id="breed_name"></td>
                 <td th:text="${breed.size}"></td>
                 <td th:text="${breed.info}"></td>
+                <td><input type="button" class="delete_breed" value="삭제" /></td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
 
+
+
 </body>
 
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js">
+</script>
+
+<script>
+
+    $(".delete_breed").click(function(){
+        var tr=$(this).parent().parent();
+        var td=tr.children();
+
+        var breed_name=td.eq(0).text();
+
+        fetch("/delete_breed/"+breed_name, {
+        method: "DELETE",
+        }).then((response) => {
+            if (response.status === 200 || response.status === 201) { // 성공을 알리는 HTTP 상태 코드면
+                alert(breed_name+"이 삭제 되었습니다.");
+                location.href="/admin_page/dog_list";
+            } else { // 실패를 알리는 HTTP 상태 코드면
+                console.error(response.statusText);
+            }})
+    });
+
+
+</script>
 </html>

@@ -4,11 +4,14 @@ import Jeje_project.Jeje_project.Dog_domain.Breed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import Jeje_project.Jeje_project.service.Dog_Service;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -21,7 +24,13 @@ public class Admin_Controller {
     public Admin_Controller(Dog_Service dog_service){
         this.dog_service=dog_service;
     }
-
+    
+    //잘못된 URL 접속시 뜨는 페이지
+    @GetMapping("/error")
+    public String error_page(){
+        return "나는 병신 ㅋㅋ......ㅠ";
+    }
+    
     @GetMapping("/")
     public String admin_main_temp(Model model){
         return "admin_pages/admin_main";
@@ -37,7 +46,6 @@ public class Admin_Controller {
     @GetMapping("/admin_page/dog_list")
     public String dog_list( Model model) {
 
-
         List<Breed> breeds = dog_service.all_Dogs();
         model.addAttribute("breeds", breeds);
 
@@ -46,8 +54,8 @@ public class Admin_Controller {
 
 
     //견종 추가 Post
-    @PostMapping("/add_dog")
-    public String add_dog(Model model, Dog_Form dog_form, HttpServletResponse response) throws Exception{
+    @PostMapping("/add_breed")
+    public void add_Breed(Dog_Form dog_form, HttpServletResponse response) throws Exception{
         Breed breed =new Breed();
 
         //빈칸이 있는지 확인
@@ -56,9 +64,6 @@ public class Admin_Controller {
             PrintWriter out = response.getWriter();
             out.println("<script>alert('빈칸을 채워주세요');</script>");
             out.flush();
-            List<Breed> breeds = dog_service.all_Dogs();
-            model.addAttribute("breeds", breeds);
-            return "admin_pages/dog_list";
         }
 
         breed.setName(dog_form.getName());
@@ -66,14 +71,13 @@ public class Admin_Controller {
         breed.setInfo(dog_form.getInfo());
 
         try {
-            dog_service.add_Dog_species(breed);
+            dog_service.add_Breed(breed);
 
             //등록 알림창
             response.setContentType("text/html; charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.println("<script>alert('등록 되었습니다'); </script>");
-//            out.flush();
-
+            out.flush();
         }
         catch (Exception exception){
             response.setContentType("text/html; charset=UTF-8");
@@ -82,18 +86,23 @@ public class Admin_Controller {
             out.flush();
         }
         finally {
-            List<Breed> breeds = dog_service.all_Dogs();
-            model.addAttribute("breeds", breeds);
-            return "admin_pages/dog_list";
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>location.href='/admin_page/dog_list';</script>");
+            out.flush();
         }
-
     }
 
+    //견종 삭제 Delete
+    @DeleteMapping("/delete_breed/{breed_name}")
+    public void delete_breed(@PathVariable String breed_name, HttpServletResponse response) throws IOException {
+        dog_service.delete_Breed(breed_name);
+    }
 
     //견종 검색 Post
-    @PostMapping(value="/search_dog")
+    @PostMapping(value="/search_breed")
     public String search_dog(Dog_Form dog_form, Model model) throws Exception{
-        List<Breed> breeds = dog_service.search_Dogs(dog_form.getName());
+        List<Breed> breeds = dog_service.search_Breeds(dog_form.getName());
         model.addAttribute("breeds", breeds);
         return "admin_pages/dog_list";
     }

@@ -20,15 +20,16 @@ public class Dog_Service {
     }
 
     // 새로운 종 추가
-    public Breed add_Dog_species(Breed breed){
+    public Breed add_Breed(Breed breed){
         breed_repository.save(breed);
         return breed;
     }
-
     //종 검색
-    public List<Breed> search_Dogs(String name){
+    public List<Breed> search_Breeds(String name){
         return breed_repository.searchbyName(name);
     }
+    //종 삭제
+    public Breed delete_Breed(String name){return breed_repository.delete(name);}
 
     //전체 종 반환
     public List<Breed> all_Dogs(){

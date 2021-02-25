@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface Breed_Repository {
 
     Breed save(Breed breed);
+    Breed delete(String name);
     Optional<Breed> findbyName(String name);
     List<Breed> searchbyName(String name);
     List<Breed> findAll();
