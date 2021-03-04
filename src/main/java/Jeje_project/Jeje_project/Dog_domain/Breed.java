@@ -1,19 +1,19 @@
 package Jeje_project.Jeje_project.Dog_domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /*This entity is for describe about certain Breed of dog */
 @Entity
 @Table(name="breed")
 public class Breed {
 
-    @Id @Column(name="name")
+    @Id
+    @Column(name="name")
     private String name;    //견종 명
+
     @Column(name="size")
     private String size;    //견종 사이즈
+
     @Column(name="information")
     private String info;    //정보
 

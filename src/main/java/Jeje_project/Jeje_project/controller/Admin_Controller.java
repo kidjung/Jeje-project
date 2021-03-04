@@ -2,6 +2,7 @@ package Jeje_project.Jeje_project.controller;
 
 import Jeje_project.Jeje_project.Dog_domain.Breed;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,13 +25,7 @@ public class Admin_Controller {
     public Admin_Controller(Dog_Service dog_service){
         this.dog_service=dog_service;
     }
-    
-    //잘못된 URL 접속시 뜨는 페이지
-    @GetMapping("/error")
-    public String error_page(){
-        return "나는 병신 ㅋㅋ......ㅠ";
-    }
-    
+
     @GetMapping("/")
     public String admin_main_temp(Model model){
         return "admin_pages/admin_main";
@@ -95,8 +90,8 @@ public class Admin_Controller {
 
     //견종 삭제 Delete
     @DeleteMapping("/delete_breed/{breed_name}")
-    public void delete_breed(@PathVariable String breed_name, HttpServletResponse response) throws IOException {
-        dog_service.delete_Breed(breed_name);
+    public ResponseEntity<Breed> delete_breed(@PathVariable String breed_name, HttpServletResponse response) throws IOException {
+        return ResponseEntity.ok().body(dog_service.delete_Breed(breed_name));
     }
 
     //견종 검색 Post
