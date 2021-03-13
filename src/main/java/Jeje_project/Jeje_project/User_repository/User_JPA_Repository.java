@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Transactional
 public class User_JPA_Repository implements User_Repository{
 
     private final EntityManager entityManager;
@@ -35,11 +34,24 @@ public class User_JPA_Repository implements User_Repository{
         return null;
     }
 
-    //Find user by id
+    //Find user by uid
     @Override
-    public Optional<User> findbyId(Long u_id) {
+    public Optional<User> findbyUId(Long u_id) {
         User user=entityManager.find(User.class,u_id);
         return Optional.ofNullable(user);
+    }
+
+    //Find user by id
+    @Override
+    public Optional<User> findbyId(String id) {
+
+        List<User> user=entityManager.createQuery("SELECT u FROM User u WHERE u.id ="+id,User.class).getResultList();
+        if(user.size()==0){
+            return Optional.ofNullable(null);
+        }
+        else{
+            return Optional.ofNullable(user.get(0));
+        }
     }
 
     //Find user by nickname

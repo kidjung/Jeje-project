@@ -26,10 +26,7 @@ public class Admin_Controller {
         this.dog_service=dog_service;
     }
 
-    @GetMapping("/")
-    public String admin_main_temp(Model model){
-        return "admin_pages/admin_main";
-    }
+
     //관리자 메인 페이지
     @GetMapping("/admin_page")
     public String admin_main(Model model){
@@ -40,17 +37,15 @@ public class Admin_Controller {
     //견종 추가, 삭제, 수정 페이지
     @GetMapping("/admin_page/dog_list")
     public String dog_list( Model model) {
-
         List<Breed> breeds = dog_service.all_Dogs();
         model.addAttribute("breeds", breeds);
-
         return "admin_pages/dog_list";
     }
 
 
     //견종 추가 Post
     @PostMapping("/add_breed")
-    public void add_Breed(Dog_Form dog_form, HttpServletResponse response) throws Exception{
+    public void add_Breed(Breed dog_form, HttpServletResponse response) throws Exception{
         Breed breed =new Breed();
 
         //빈칸이 있는지 확인
@@ -96,7 +91,7 @@ public class Admin_Controller {
 
     //견종 검색 Post
     @PostMapping(value="/search_breed")
-    public String search_dog(Dog_Form dog_form, Model model) throws Exception{
+    public String search_dog(Breed dog_form, Model model) throws Exception{
         List<Breed> breeds = dog_service.search_Breeds(dog_form.getName());
         model.addAttribute("breeds", breeds);
         return "admin_pages/dog_list";

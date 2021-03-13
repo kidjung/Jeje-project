@@ -13,7 +13,8 @@ public interface User_Repository {
 
     User save(User user);
     User delete(User user);
-    Optional<User> findbyId(Long u_id);
+    Optional<User> findbyUId(Long u_id);
+    Optional<User> findbyId(String id);
     List<User> searchbyNickname(String nickname);
 
 }

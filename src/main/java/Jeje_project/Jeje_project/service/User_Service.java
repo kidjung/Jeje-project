@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -38,5 +40,21 @@ public class User_Service {
     //** not implemented
     public MyDog add_dog(User user, MyDog dog){
         return new MyDog();
+    }
+
+    //로그인
+    public boolean login(User user){
+        Optional<User> to_login=user_repository.findbyId(user.getId());
+        if(!to_login.isEmpty()){
+            if(to_login.get().getPassword()==user.getPassword()){
+                return true;
+            }
+            else {
+                return true;
+            }
+        }
+        else{
+            return false;
+        }
     }
 }
