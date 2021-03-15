@@ -96,10 +96,7 @@ public class User_Controller {
     }
 
     @PostMapping("/signup")
-    public String signup(HttpSession httpSession, @RequestParam Signup_form signup_form){
-        if(signup_form.getPassword()!=signup_form.getPassword_check()){
-            return "fail_page";
-        }
+    public String signup(Signup_form signup_form, HttpSession httpSession){
         User to_signup=new User();
         System.out.println(signup_form.getId());
         to_signup.setId(signup_form.getId());
@@ -107,6 +104,10 @@ public class User_Controller {
         to_signup.setPassword(signup_form.getPassword());
         System.out.println(signup_form.getNickname());
         to_signup.setNickname(signup_form.getNickname());
+        if(!signup_form.getPassword().equals(signup_form.getPassword_check())){
+            return "fail_page";
+        }
+
         user_service.Signup(to_signup);
         return "redirect:/";
     }

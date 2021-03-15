@@ -36,6 +36,4 @@ public class MyDog_JPA_Repository implements MyDog_Repository{
         return mydogs;
     }
 
-
-
 }
