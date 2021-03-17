@@ -48,9 +48,9 @@ public class MyDog {
     public Breed getBreed() {
         return breed;
     }
-//    public void setBreed(String breed_name) {
-//        this.breed = breed_name;
-//    }
+    public void setBreed(Breed breed) {
+        this.breed = breed;
+    }
     public String getDescribe() {
         return describe;
     }

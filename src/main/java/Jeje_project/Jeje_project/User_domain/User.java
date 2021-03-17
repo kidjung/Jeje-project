@@ -1,34 +1,57 @@
 package Jeje_project.Jeje_project.User_domain;
 
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /*This entity is for describe about User inforamation */
 
+
+@NoArgsConstructor(access= AccessLevel.PROTECTED)
 @Entity
 @Table(name="user")
-public class User {
+public class User implements UserDetails {
     @Id
-    @Column(name="u_id", nullable = false)
+    @Column(name="uid", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long U_id;
+    private Long U_id;
 
-    @Column(name="id", nullable = false)
-    String Id;
+    @Column(name="email", nullable = false)
+    private String Email;
 
     @Column(name="password", nullable = false)
-    String Password;
+    private String Password;
 
     @Column(name="nickname", nullable = false)
-    String Nickname;
+    private String Nickname;
+
+    @Column(name="auth")
+    private String Auth;
 
     @OneToOne
     @JoinColumn(name="do_id")
-    Dog_Owner dog_owner;
+    private Dog_Owner dog_owner;
 
     @OneToOne
     @JoinColumn(name="w_id")
-    Walker walker;
+    private Walker walker;
 
+
+    @Builder
+    public User(String email, String password, String nickname, String auth){
+        this.Email=email;
+        this.Password=password;
+        this.Nickname=nickname;
+        this.Auth=auth;
+    }
     public Long getU_id() {
         return U_id;
     }
@@ -37,12 +60,21 @@ public class User {
         U_id = u_id;
     }
 
-    public String getId() {
-        return Id;
+    public String getEmail() {
+        return Email;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> roles = new HashSet<>();
+        for (String role : Auth.split(",")) {
+            roles.add(new SimpleGrantedAuthority(role));
+        }
+        return roles;
     }
 
     public String getPassword() {
@@ -75,5 +107,30 @@ public class User {
 
     public void setWalker(Walker walker) {
         this.walker = walker;
+    }
+
+    @Override
+    public String getUsername() {
+        return Email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

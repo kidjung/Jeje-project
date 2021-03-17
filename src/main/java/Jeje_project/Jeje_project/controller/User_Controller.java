@@ -1,52 +1,20 @@
 package Jeje_project.Jeje_project.controller;
 
 import Jeje_project.Jeje_project.User_domain.User;
+import Jeje_project.Jeje_project.User_domain.User_DTO;
 import Jeje_project.Jeje_project.service.User_Service;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-class Signup_form{
-    private String Id;
-    private String Password;
-    private String Password_check;
-    private String Nickname;
-
-    public String getId() {
-        return Id;
-    }
-
-    public void setId(String id) {
-        Id = id;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
-    }
-
-    public String getPassword_check() {
-        return Password_check;
-    }
-
-    public void setPassword_check(String password_check) {
-        Password_check = password_check;
-    }
-
-    public String getNickname() {
-        return Nickname;
-    }
-
-    public void setNickname(String nickname) {
-        Nickname = nickname;
-    }
-}
+import java.io.IOException;
+import java.io.PrintWriter;
 
 
 @Controller
@@ -65,51 +33,58 @@ public class User_Controller {
 
     @GetMapping("/login")
     public String login_page(HttpSession httpSession){
-        if(httpSession.getAttribute("loginCheck")==null){
-            return "user_pages/login";
-        }
-        else{
-            return "fail_page";
-        }
+        return "user_pages/login";
     }
 
     @GetMapping("/signup")
     public String signup_page(HttpSession httpSession){
-        if(httpSession.getAttribute("loginCheck")==null){
-            return "user_pages/sign_up";
-        }
-        else{
-            return "fail_page";
-        }
+        return "user_pages/sign_up";
     }
-
+/*
     @PostMapping("/login")
     public String login(HttpSession httpSession, User user){
         if(user_service.login(user)){
             httpSession.setAttribute("loginCheck",true);
-            httpSession.setAttribute("id",user.getId());
+            httpSession.setAttribute("email",user.getEmail());
             return "redirect:/";
         }
         else{
             return "fail_page";
         }
     }
-
+*/
     @PostMapping("/signup")
-    public String signup(Signup_form signup_form, HttpSession httpSession){
-        User to_signup=new User();
-        System.out.println(signup_form.getId());
-        to_signup.setId(signup_form.getId());
-        System.out.println(signup_form.getPassword());
-        to_signup.setPassword(signup_form.getPassword());
-        System.out.println(signup_form.getNickname());
-        to_signup.setNickname(signup_form.getNickname());
-        if(!signup_form.getPassword().equals(signup_form.getPassword_check())){
-            return "fail_page";
+    public String signup(User_DTO user, HttpServletResponse response) throws IOException {
+
+        if(!user.getPassword().equals(user.getPassword_check())){
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('비밀번호가 다릅니다');</script>");
+            out.flush();
+            return "user_pages/sign_up";
+        }else if(user_service.findbyEmail(user.getEmail()).isPresent()){
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('이미 존재하는 아이디 입니다.');</script>");
+            out.flush();
+            return "user_pages/sign_up";
+        }else if(user_service.findbyNickname(user.getNickname()).isPresent()){
+            response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            out.println("<script>alert('이미 존재하는 닉네임 입니다.');</script>");
+            out.flush();
+            return "user_pages/sign_up";
         }
 
-        user_service.Signup(to_signup);
+        user_service.Signup(user);
         return "redirect:/";
     }
 
+    //로그아웃
+    @GetMapping(value = "/logout")
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+        new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+        return "redirect:/login";
+    }
 }
+

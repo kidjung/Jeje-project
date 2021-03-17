@@ -30,7 +30,7 @@ public class Admin_Controller {
     //관리자 메인 페이지
     @GetMapping("/admin_page")
     public String admin_main(Model model){
-        return "admin_pages/admin_main";
+        return "redirect:/main";
     }
 
 

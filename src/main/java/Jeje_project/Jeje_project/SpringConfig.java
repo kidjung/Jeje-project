@@ -3,6 +3,8 @@ package Jeje_project.Jeje_project;
 //import Jeje_project.Jeje_project.Dog_repository.Dog_MemoryRepository;
 import Jeje_project.Jeje_project.Dog_repository.Breed_JPA_Repository;
 import Jeje_project.Jeje_project.Dog_repository.Breed_Repository;
+import Jeje_project.Jeje_project.Dog_repository.MyDog_JPA_Repository;
+import Jeje_project.Jeje_project.Dog_repository.MyDog_Repository;
 import Jeje_project.Jeje_project.User_domain.Dog_Owner;
 import Jeje_project.Jeje_project.User_domain.Walker;
 import Jeje_project.Jeje_project.User_repository.*;
@@ -32,7 +34,7 @@ public class SpringConfig {
 
     @Bean
     public User_Service user_service(){
-        return new User_Service(user_repository(),walker_repository(),dog_owner_repository());
+        return new User_Service(user_repository(),walker_repository(),dog_owner_repository(), myDog_repository());
     }
 
     //Mysql 서버 db에 저장
@@ -40,6 +42,9 @@ public class SpringConfig {
     public Breed_Repository breed_repository(){
         return new Breed_JPA_Repository(entityManager);
     }
+
+    @Bean
+    public MyDog_Repository myDog_repository() {return new MyDog_JPA_Repository(entityManager);}
 
     @Bean
     public User_Repository user_repository(){
